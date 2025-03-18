@@ -21,18 +21,19 @@ const App = () => {
 
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
   
-  useEffect(()=>{
-    const getUser = async () => {
-      try {
-        const res = await axios.get('https://talentbridge-gprx.onrender.com/api/v1/user/getUser', {withCredentials:true})
-        setUser(res.data.user)
-        setIsAuthorized(true)
-      } catch (error) {
-        setIsAuthorized(false)
-      }
+ useEffect(() => {
+  const getUser = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/getUser`, { withCredentials: true });
+      setUser(res.data.user);
+      setIsAuthorized(true);
+    } catch (error) {
+      setIsAuthorized(false);
     }
-    getUser()
-  },[isAuthorized])
+  };
+  getUser();
+}, [isAuthorized]);
+
 
 
   return (
