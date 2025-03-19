@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react"
-import { MdOutlineMailOutline } from "react-icons/md"
-import { RiLock2Fill } from "react-icons/ri"
-import { Link, Navigate } from "react-router-dom"
-import { FaRegUser } from "react-icons/fa"
-import axios from "axios"
-import toast from "react-hot-toast"
-import { Context } from "../../main"
+import React, { useContext, useState } from "react";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { RiLock2Fill } from "react-icons/ri";
+import { Link, Navigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Context } from "../../main";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +15,11 @@ const Login = () => {
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleLogin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://talentbridge-gprx.onrender.com/api/v1/user/login",
+        // Ensure the URL is constructed correctly. Note the slash at the beginning of the endpoint.
+        `${import.meta.env.VITE_BACKEND_URL}api/v1/user/login`,
         { email, password, role },
         {
           headers: {
@@ -26,16 +27,16 @@ const Login = () => {
           },
           withCredentials: true,
         }
-      )
+      );
       toast.success(data.message);
       setIsAuthorized(true);
     } catch (error) {
       toast.error(error.response.data.message);
     }
-  }
+  };
 
-  if(isAuthorized){
-    return <Navigate to={'/'}/>
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
   }
 
   return (
@@ -96,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;
