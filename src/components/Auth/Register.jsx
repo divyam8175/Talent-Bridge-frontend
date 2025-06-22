@@ -7,7 +7,7 @@ import { FaPencilAlt, FaRegUser } from 'react-icons/fa';
 import { FaPhoneFlip } from 'react-icons/fa6';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { RiLock2Fill } from 'react-icons/ri';
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const Register = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}api/v1/user/register`,
+        `${API}/api/v1/user/register`,
         { name, phone, email, role, password },
         {
           headers: {
@@ -33,7 +33,11 @@ const Register = () => {
       toast.success(data.message);
       setIsAuthorized(true);
     } catch (error) {
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
     }
   };
 

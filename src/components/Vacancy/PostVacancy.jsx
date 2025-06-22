@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const PostVacancy = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,7 +15,7 @@ const PostVacancy = () => {
 
   const handleVacancyPost = async (e) => {
     e.preventDefault();
-    await axios.post("https://talentbridge-gprx.onrender.com/api/v1/vacancy/post",
+    await axios.post(`${API}/api/v1/vacancy/post`,
             {
               title, description, category, team, branch
             },

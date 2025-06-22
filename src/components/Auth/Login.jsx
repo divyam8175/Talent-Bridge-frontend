@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ const Login = () => {
     try {
       const { data } = await axios.post(
         // Ensure the URL is constructed correctly. Note the slash at the beginning of the endpoint.
-        `${import.meta.env.VITE_BACKEND_URL}api/v1/user/login`,
+        `${API}/api/v1/user/login`,
         { email, password, role },
         {
           headers: {

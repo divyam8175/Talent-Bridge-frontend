@@ -16,7 +16,7 @@ import MyApplication from './components/Application/MyApplication'
 import NotFound from './components/NotFound/NotFound'
 import axios from 'axios'
 import {Toaster} from 'react-hot-toast'
-
+const API= import.meta.env.VITE_BACKEND_URL;
 const App = () => {
 
   const {isAuthorized, setIsAuthorized, setUser} = useContext(Context)
@@ -24,7 +24,7 @@ const App = () => {
  useEffect(() => {
   const getUser = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/getUser`, { withCredentials: true });
+      const res = await axios.get(`${API}/api/v1/user/getUser`, { withCredentials: true });
       setUser(res.data.user);
       setIsAuthorized(true);
     } catch (error) {

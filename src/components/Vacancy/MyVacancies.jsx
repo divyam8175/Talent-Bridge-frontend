@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { Context } from "../../main";
 import { useNavigate } from "react-router-dom";
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const MyVacancies = () => {
 
   const [myVacancies, setMyVacancies] = useState([]);
@@ -18,7 +18,7 @@ const MyVacancies = () => {
     const fetchVacancies = async () => {
       try {
         const { data } = await axios.get(
-          "https://talentbridge-gprx.onrender.com/api/v1/vacancy/getMyVacancies",
+          `${API}/api/v1/vacancy/getMyVacancies`,
           { withCredentials: true }
         );
         setMyVacancies(data.myVacancies);
@@ -43,7 +43,7 @@ const MyVacancies = () => {
 
   const handleUpdateVacancy = async (vacancyId) => {
     const updatedVacancy = myVacancies.find((vacancy) => vacancy._id === vacancyId);
-    await axios.put(`https://talentbridge-gprx.onrender.com/api/v1/vacancy/update/${vacancyId}`, updatedVacancy, {
+    await axios.put(`${API}/api/v1/vacancy/update/${vacancyId}`, updatedVacancy, {
         withCredentials: true,
       })
       .then((res) => {
@@ -56,7 +56,7 @@ const MyVacancies = () => {
   }
 
   const handleDeleteVacancy = async (vacancyId) => {
-    await axios.delete(`https://talentbridge-gprx.onrender.com/api/v1/vacancy/delete/${vacancyId}`, {
+    await axios.delete(`${API}/api/v1/vacancy/delete/${vacancyId}`, {
         withCredentials: true,
       })
       .then((res) => {

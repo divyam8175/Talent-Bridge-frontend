@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../../main'
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const Vacancies = () => {
 
   const [vacancies, setVacancies] = useState([])
@@ -11,7 +11,7 @@ const Vacancies = () => {
 
   useEffect(()=>{
     try {
-      axios.get('https://talentbridge-gprx.onrender.com/api/v1/vacancy/getAll', {withCredentials:true}).then((res)=>{
+      axios.get(`${API}/api/v1/vacancy/getAll`, {withCredentials:true}).then((res)=>{
         setVacancies(res.data)
       })
     } catch (error) {

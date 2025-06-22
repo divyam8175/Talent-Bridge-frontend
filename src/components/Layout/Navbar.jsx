@@ -4,7 +4,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import {GiHamburgerMenu} from 'react-icons/gi'
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const Navbar = () => {
 
     const [show, setShow] = useState(false)
@@ -13,12 +13,12 @@ const Navbar = () => {
 
     const handleLogout = async() => {
         try {
-            const res = await axios.get('https://talentbridge-gprx.onrender.com/api/v1/user/logout', {withCredentials:true})
+            const res = await axios.get(`${API}/api/v1/user/logout`, {withCredentials:true})
             toast.success(res.data.message)
             setIsAuthorized(false)
             navigate('/login')
         } catch (error) {
-            toast.error(error.res.data.message)
+            toast.error(error.response.data.message)
             setIsAuthorized(true)
         }
     }

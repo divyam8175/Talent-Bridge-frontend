@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../main'
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const VacancyDetails = () => {
 
   const {id} = useParams()
@@ -13,7 +13,7 @@ const VacancyDetails = () => {
   const {isAuthorized, user} = useContext(Context)
 
   useEffect(()=>{
-    axios.get(`https://talentbridge-gprx.onrender.com/api/v1/vacancy/${id}`,{withCredentials:true}).then((res)=>{
+    axios.get(`${API}/api/v1/vacancy/${id}`,{withCredentials:true}).then((res)=>{
       setVacancy(res.data.vacancy)
     }).catch((error)=>{
       navigate('/notfound')

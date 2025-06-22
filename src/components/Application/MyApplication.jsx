@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ResumeModel from "./ResumeModel";
-
+const API = import.meta.env.VITE_BACKEND_URL;
 const MyApplication = () => {
   const { user } = useContext(Context);
   const [applications, setApplications] = useState([]);
@@ -17,12 +17,12 @@ const MyApplication = () => {
   useEffect(() => {
     try {
       if (user && user.role === "Senior") {
-        axios.get("https://talentbridge-gprx.onrender.com/api/v1/application/senior/getAll", {
+        axios.get(`${API}/api/v1/application/senior/getAll`, {
             withCredentials: true}).then((res) => {
             setApplications(res.data.applications);
           })
       } else {
-        axios.get("https://talentbridge-gprx.onrender.com/api/v1/application/junior/getAll", {withCredentials: true}).then((res) => {
+        axios.get(`${API}/api/v1/application/junior/getAll`, {withCredentials: true}).then((res) => {
             setApplications(res.data.applications);
           })
       }
@@ -37,7 +37,7 @@ const MyApplication = () => {
 
   const deleteApplication = (id) => {
     try {
-      axios.delete(`https://talentbridge-gprx.onrender.com/api/v1/application/delete/${id}`, {
+      axios.delete(`${API}/api/v1/application/delete/${id}`, {
           withCredentials: true}).then((res) => {
           toast.success(res.data.message);
           setApplications((prevApplication) =>
